@@ -1,1 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Video Studio</title>
 
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: white;
+  background: #080816;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  color: #00eaff;
+  text-shadow: 0 0 15px #00eaff;
+}
+
+.subtitle {
+  text-align: center;
+  color: #b8b8d0;
+  line-height: 1.6;
+}
+
+label {
+  display: block;
+  margin-top: 18px;
+  color: #00eaff;
+  font-weight: bold;
+}
+
+textarea, select, button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 9px;
+  border: 1px solid #303052;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+textarea, select {
+  background: #17172c;
+  color: white;
+}
+
+textarea {
+  height: 130px;
+  resize: vertical;
+}
+
+button {
+  border: none;
+  background: linear-gradient(90deg, #00eaff, #8a2be2);
+  color: #080816;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+}
+
+.card {
+  margin-top: 20px;
+  padding: 16px;
+  border: 1px solid #303052;
+  border-radius: 14px;
+  background: #101024;
+}
+
+#status {
+  text-align: center;
+  color: #00eaff;
+  line-height: 1.6;
+}
+
+#videoOutput {
+  width: 100%;
+  max-height: 500px;
+  margin-top: 15px;
+  border-radius: 10px;
+  background: #000;
+}
+
+#download {
+  display: none;
+  text-align: center;
+  margin-top: 15px;
+  padding: 14px;
+  border-radius: 10px;
+  background: #00eaff;
+  color: #080816;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.note {
+  margin-top: 22px;
+  color: #9999b5;
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>⚡ AI VIDEO STUDIO</h1>
+
+<p class="subtitle">
+Your personal AI video creator.<br>
+Turn your imagination into videos.
+</p>
+
+<div class="card">
+
+<label for="prompt">Describe your video</label>
+
+<textarea id="prompt"
+placeholder="Example: An epic anime warrior fighting under a glowing blue moon..."></textarea>
+
+<label for="category">Video category</label>
+
+<select id="category">
+  <option>Gaming</option>
+  <option>Anime</option>
+  <option>Football</option>
+  <option>Cinematic</option>
+  <option>Realistic</option>
+  <option>Fantasy</option>
+  <option>Nature</option>
+  <option>Other</option>
+</select>
+
+<label for="style">Visual style</label>
+
+<select id="style">
+  <option>Cinematic</option>
+  <option>Ultra realistic</option>
+  <option>Anime</option>
+  <option>Dark and dramatic</option>
+  <option>Neon</option>
+  <option>Fantasy</option>
+</select>
+
+<label for="ratio">Video format</label>
+
+<select id="ratio">
+  <option value="9:16">Vertical 9:16 - Reels</option>
+  <option value="16:9">Horizontal 16:9 - YouTube</option>
+  <option value="1:1">Square 1:1</option>
+</select>
+
+<label for="duration">Preferred duration</label>
+
+<select id="duration">
+  <option value="5">5 seconds</option>
+  <option value="10">10 seconds</option>
+  <option value="15">15 seconds</option>
+</select>
+
+<button id="generate" onclick="generateVideo()">
+  🚀 Generate AI Video
+</button>
+
+</div>
+
+<div class="card">
+<h3>🎬 Your Video</h3>
+
+<p id="status">
+Your generated video will appear here after we connect an AI service.
+</p>
+
+<video id="videoOutput" controls playsinline></video>
+
+<a id="download" download="my-ai-video.mp4">
+⬇️ Download Video
+</a>
+</div>
+
+<p class="note">
+Personal AI Video Studio<br>
+AI video generation requires a connected AI model or service.
+Free access depends on the provider.
+</p>
+
+</div>
+
+<script>
+function generateVideo() {
+  const prompt = document.getElementById("prompt").value.trim();
+
+  if (!prompt) {
+    alert("Please describe the video you want to create.");
+    return;
+  }
+
+  document.getElementById("status").textContent =
+    "Your prompt is ready! The AI video-generation service has not been connected yet. We'll add that next.";
+}
+</script>
+
+</body>
+</html>
