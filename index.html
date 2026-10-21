@@ -2,26 +2,118 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Video Studio</title>
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;padding:18px;font-family:Arial,sans-serif;background:#080816;color:white}
-.container{max-width:600px;margin:auto}
-h1{text-align:center;color:#00eaff;text-shadow:0 0 15px #00eaff}
-.subtitle{text-align:center;color:#b8b8d0;line-height:1.6}
-.card{margin-top:20px;padding:16px;border:1px solid #303052;border-radius:14px;background:#101024}
-label{display:block;margin-top:16px;color:#00eaff;font-weight:bold}
-input,textarea,select,button{width:100%;padding:13px;margin-top:9px;border-radius:9px;font-size:15px}
-input,textarea,select{background:#17172c;color:white;border:1px solid #303052}
-textarea{height:95px}
-button{border:0;background:linear-gradient(90deg,#00eaff,#8a2be2);color:#080816;font-weight:bold}
-button:disabled{opacity:.5}
-#preview{width:100%;max-height:400px;object-fit:contain;margin-top:15px;background:#000;border-radius:10px}
-#status{text-align:center;line-height:1.6;color:#00eaff}
-a{display:block;text-align:center;padding:14px;margin-top:12px;background:#00eaff;color:#080816;border-radius:9px;text-decoration:none;font-weight:bold}
-.note{text-align:center;color:#9999b5;font-size:12px;line-height:1.6}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: white;
+  background: #080816;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  color: #00eaff;
+  text-shadow: 0 0 15px #00eaff;
+}
+
+.subtitle {
+  text-align: center;
+  color: #b8b8d0;
+  line-height: 1.6;
+}
+
+label {
+  display: block;
+  margin-top: 18px;
+  color: #00eaff;
+  font-weight: bold;
+}
+
+textarea, select, button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 9px;
+  border: 1px solid #303052;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+textarea, select {
+  background: #17172c;
+  color: white;
+}
+
+textarea {
+  height: 130px;
+  resize: vertical;
+}
+
+button {
+  border: none;
+  background: linear-gradient(90deg, #00eaff, #8a2be2);
+  color: #080816;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+}
+
+.card {
+  margin-top: 20px;
+  padding: 16px;
+  border: 1px solid #303052;
+  border-radius: 14px;
+  background: #101024;
+}
+
+#status {
+  text-align: center;
+  color: #00eaff;
+  line-height: 1.6;
+}
+
+#videoOutput {
+  width: 100%;
+  max-height: 500px;
+  margin-top: 15px;
+  border-radius: 10px;
+  background: #000;
+}
+
+#download {
+  display: none;
+  text-align: center;
+  margin-top: 15px;
+  padding: 14px;
+  border-radius: 10px;
+  background: #00eaff;
+  color: #080816;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.note {
+  margin-top: 22px;
+  color: #9999b5;
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: center;
+}
 </style>
 </head>
 
@@ -29,275 +121,100 @@ a{display:block;text-align:center;padding:14px;margin-top:12px;background:#00eaf
 <div class="container">
 
 <h1>⚡ AI VIDEO STUDIO</h1>
-<p class="subtitle">Create animated videos on your phone.<br>No API key required.</p>
+
+<p class="subtitle">
+Your personal AI video creator.<br>
+Turn your imagination into videos.
+</p>
 
 <div class="card">
-<label for="images">🖼️ Choose images</label>
-<input id="images" type="file" accept="image/*" multiple>
 
-<label for="prompt">📝 Video caption</label>
-<textarea id="prompt" placeholder="Enter your caption or video idea..."></textarea>
+<label for="prompt">Describe your video</label>
 
-<label for="duration">🎬 Video duration</label>
-<select id="duration">
-<option value="5">5 seconds</option>
-<option value="10">10 seconds</option>
-<option value="15">15 seconds</option>
+<textarea id="prompt"
+placeholder="Example: An epic anime warrior fighting under a glowing blue moon..."></textarea>
+
+<label for="category">Video category</label>
+
+<select id="category">
+  <option>Gaming</option>
+  <option>Anime</option>
+  <option>Football</option>
+  <option>Cinematic</option>
+  <option>Realistic</option>
+  <option>Fantasy</option>
+  <option>Nature</option>
+  <option>Other</option>
 </select>
 
-<label for="ratio">📱 Video format</label>
+<label for="style">Visual style</label>
+
+<select id="style">
+  <option>Cinematic</option>
+  <option>Ultra realistic</option>
+  <option>Anime</option>
+  <option>Dark and dramatic</option>
+  <option>Neon</option>
+  <option>Fantasy</option>
+</select>
+
+<label for="ratio">Video format</label>
+
 <select id="ratio">
-<option value="9:16">Vertical — Reels</option>
-<option value="16:9">Horizontal — YouTube</option>
-<option value="1:1">Square</option>
+  <option value="9:16">Vertical 9:16 - Reels</option>
+  <option value="16:9">Horizontal 16:9 - YouTube</option>
+  <option value="1:1">Square 1:1</option>
 </select>
 
-<button id="create">🎬 Create Video</button>
+<label for="duration">Preferred duration</label>
+
+<select id="duration">
+  <option value="5">5 seconds</option>
+  <option value="10">10 seconds</option>
+  <option value="15">15 seconds</option>
+</select>
+
+<button id="generate" onclick="generateVideo()">
+  🚀 Generate AI Video
+</button>
+
 </div>
 
 <div class="card">
-<h3>🎞️ Video Preview</h3>
-<p id="status">Choose at least one image to begin.</p>
-<video id="preview" controls playsinline></video>
-<a id="download" hidden download="my-video.webm">⬇️ Download Video</a>
+<h3>🎬 Your Video</h3>
+
+<p id="status">
+Your generated video will appear here after we connect an AI service.
+</p>
+
+<video id="videoOutput" controls playsinline></video>
+
+<a id="download" download="my-ai-video.mp4">
+⬇️ Download Video
+</a>
 </div>
 
 <p class="note">
-This version animates your images into a video. It does not generate new scenes with AI.
-Video recording depends on browser support.
+Personal AI Video Studio<br>
+AI video generation requires a connected AI model or service.
+Free access depends on the provider.
 </p>
 
 </div>
 
 <script>
-const imageInput = document.getElementById("images");
-const createButton = document.getElementById("create");
-const statusText = document.getElementById("status");
-const preview = document.getElementById("preview");
-const downloadLink = document.getElementById("download");
+function generateVideo() {
+  const prompt = document.getElementById("prompt").value.trim();
 
-let imageUrls = [];
+  if (!prompt) {
+    alert("Please describe the video you want to create.");
+    return;
+  }
 
-imageInput.addEventListener("change", () => {
-  imageUrls.forEach(url => URL.revokeObjectURL(url));
-  imageUrls = Array.from(imageInput.files || []).map(file =>
-    URL.createObjectURL(file)
-  );
-
-  statusText.textContent = imageUrls.length
-    ? imageUrls.length + " image(s) selected. Ready to create your video."
-    : "Choose at least one image to begin.";
-});
-
-function loadImage(url) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve(img);
-    img.onerror = reject;
-    img.src = url;
-  });
+  document.getElementById("status").textContent =
+    "Your prompt is ready! The AI video-generation service has not been connected yet. We'll add that next.";
 }
-
-createButton.addEventListener("click", async () => {
-  if (!imageUrls.length) {
-    alert("Please choose at least one image.");
-    return;
-  }
-
-  if (!HTMLCanvasElement.prototype.captureStream ||
-      !window.MediaRecorder) {
-    statusText.textContent =
-      "Video recording isn't supported in this browser. Try Chrome.";
-    return;
-  }
-
-  createButton.disabled = true;
-  downloadLink.hidden = true;
-  preview.removeAttribute("src");
-  preview.load();
-
-  let stream;
-  let recorder;
-  let animationId;
-  let timer;
-
-  try {
-    statusText.textContent = "Preparing your video...";
-
-    const images = await Promise.all(imageUrls.map(loadImage));
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    const ratio = document.getElementById("ratio").value;
-
-    if (ratio === "9:16") {
-      canvas.width = 720;
-      canvas.height = 1280;
-    } else if (ratio === "16:9") {
-      canvas.width = 1280;
-      canvas.height = 720;
-    } else {
-      canvas.width = 720;
-      canvas.height = 720;
-    }
-
-    const duration = Number(document.getElementById("duration").value);
-    const caption = document.getElementById("prompt").value.trim();
-    const totalFrames = Math.ceil(duration * 20);
-    const frameDuration = 1000 / 20;
-    let frame = 0;
-    let startTime = null;
-
-    function drawFrame(time) {
-      if (startTime === null) startTime = time;
-
-      const elapsed = time - startTime;
-      frame = Math.min(totalFrames - 1,
-        Math.floor(elapsed / frameDuration));
-
-      const imageIndex = Math.min(
-        images.length - 1,
-        Math.floor(frame / totalFrames * images.length)
-      );
-
-      const img = images[imageIndex];
-      const progress = (frame % Math.ceil(totalFrames / images.length)) /
-        Math.ceil(totalFrames / images.length);
-
-      ctx.fillStyle = "#080816";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      const scale = Math.max(
-        canvas.width / img.width,
-        canvas.height / img.height
-      ) * (1 + progress * 0.12);
-
-      const w = img.width * scale;
-      const h = img.height * scale;
-
-      ctx.save();
-      ctx.translate(canvas.width / 2, canvas.height / 2);
-      ctx.drawImage(img, -w / 2, -h / 2, w, h);
-      ctx.restore();
-
-      if (caption) {
-        const fontSize = Math.round(canvas.width * 0.045);
-        ctx.font = "bold " + fontSize + "px Arial";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-
-        const maxWidth = canvas.width * 0.84;
-        const words = caption.split(/\s+/);
-        const lines = [];
-        let line = "";
-
-        for (const word of words) {
-          const test = line ? line + " " + word : word;
-          if (ctx.measureText(test).width > maxWidth && line) {
-            lines.push(line);
-            line = word;
-          } else {
-            line = test;
-          }
-        }
-        if (line) lines.push(line);
-
-        const lineHeight = fontSize * 1.25;
-        const blockHeight = lines.length * lineHeight;
-        const bottom = canvas.height * 0.83;
-
-        ctx.fillStyle = "rgba(0,0,0,0.62)";
-        ctx.fillRect(
-          canvas.width * 0.04,
-          bottom - blockHeight / 2 - fontSize * 0.6,
-          canvas.width * 0.92,
-          blockHeight + fontSize * 1.2
-        );
-
-        ctx.fillStyle = "white";
-        lines.forEach((text, i) => {
-          ctx.fillText(
-            text,
-            canvas.width / 2,
-            bottom - blockHeight / 2 + i * lineHeight + lineHeight / 2,
-            maxWidth
-          );
-        });
-      }
-
-      if (frame < totalFrames - 1) {
-        animationId = requestAnimationFrame(drawFrame);
-      }
-    }
-
-    ctx.fillStyle = "#080816";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    stream = canvas.captureStream(20);
-
-    const mimeType = [
-      "video/webm;codecs=vp9",
-      "video/webm;codecs=vp8",
-      "video/webm"
-    ].find(type => MediaRecorder.isTypeSupported(type));
-
-    if (!mimeType) {
-      stream.getTracks().forEach(track => track.stop());
-      throw new Error("This browser cannot record a supported video format.");
-    }
-
-    recorder = new MediaRecorder(stream, {mimeType});
-    const chunks = [];
-
-    recorder.ondataavailable = event => {
-      if (event.data.size) chunks.push(event.data);
-    };
-
-    recorder.onerror = () => {
-      statusText.textContent = "Recording failed. Please try again.";
-      createButton.disabled = false;
-    };
-
-    recorder.onstop = () => {
-      cancelAnimationFrame(animationId);
-      clearTimeout(timer);
-      stream.getTracks().forEach(track => track.stop());
-
-      if (!chunks.length) {
-        statusText.textContent = "No video data was recorded. Try again.";
-        createButton.disabled = false;
-        return;
-      }
-
-      const blob = new Blob(chunks, {type: mimeType});
-      const url = URL.createObjectURL(blob);
-
-      preview.src = url;
-      preview.load();
-
-      downloadLink.href = url;
-      downloadLink.download = "my-video.webm";
-      downloadLink.hidden = false;
-
-      statusText.textContent =
-        "Your video is ready! Preview it and tap Download Video.";
-      createButton.disabled = false;
-    };
-
-    recorder.start();
-    animationId = requestAnimationFrame(drawFrame);
-
-    timer = setTimeout(() => {
-      if (recorder.state !== "inactive") recorder.stop();
-    }, duration * 1000 + 250);
-
-    statusText.textContent = "Creating video... Please keep this page open.";
-
-  } catch (error) {
-    if (stream) stream.getTracks().forEach(track => track.stop());
-    statusText.textContent = "Error: " + error.message;
-    createButton.disabled = false;
-  }
-});
 </script>
+
 </body>
 </html>
